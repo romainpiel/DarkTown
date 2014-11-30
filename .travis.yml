@@ -4,7 +4,7 @@ android:
     - platform-tools
     - tools
     - build-tools-21.0.0
-    - android-21
+    - android-18
 
 notifications:
   email: false
@@ -19,4 +19,4 @@ before_install:
   - uname -a
 
 # Let's try to build...
-script: ./gradlew clean testDebug -i
+script: ./gradlew testDebug -i
