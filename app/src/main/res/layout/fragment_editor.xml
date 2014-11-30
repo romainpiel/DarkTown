@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="?android:attr/actionBarSize">
 
-        <EditText
+        <com.romainpiel.darktown.MarkdownEditText
             android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
