@@ -5,7 +5,8 @@ android:
     - tools
     - build-tools-21.0.0
     - android-18
-    - extra-android-appcompat
+    - extra-android-m2repository
+    - extra-android-support
 
 notifications:
   email: false
