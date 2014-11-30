@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:elevation">2dp</item>
+    </style>
+
+</resources>

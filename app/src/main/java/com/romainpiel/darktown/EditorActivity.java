@@ -1,13 +1,13 @@
 package com.romainpiel.darktown;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class EditorActivity extends Activity implements ToolbarPresenter {
+public class EditorActivity extends ActionBarActivity implements ToolbarPresenter {
 
     @InjectView(R.id.toolbar) AnimatableToolbar toolbar;
 
@@ -23,13 +23,13 @@ public class EditorActivity extends Activity implements ToolbarPresenter {
                     .toolbarPresenter(this)
                     .build();
 
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_placeholder, editorFragment)
                     .commit();
         }
 
         if (toolbar != null) {
-            setActionBar(toolbar);
+            setSupportActionBar(toolbar);
         }
     }
 

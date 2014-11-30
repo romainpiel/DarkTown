@@ -20,10 +20,6 @@ public class ScrollAwareScrollView extends ScrollView {
         super(context, attrs, defStyleAttr);
     }
 
-    public ScrollAwareScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     public OnScrollListener getOnScrollListener() {
         return onScrollListener;
     }
