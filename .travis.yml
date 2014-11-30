@@ -3,7 +3,7 @@ android:
   components:
     - platform-tools
     - tools
-    - build-tools-18.0.0
+    - build-tools-21.0.0
     - android-18
 
 notifications:
