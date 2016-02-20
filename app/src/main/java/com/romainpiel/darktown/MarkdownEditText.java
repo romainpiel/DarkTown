@@ -7,6 +7,7 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 
 import java.util.regex.Matcher;
@@ -50,9 +51,11 @@ public class MarkdownEditText extends EditText {
     private static class MarkdownTextWatcher implements TextWatcher {
 
         private Pattern pattern;
+        private MarkDownParser markDownParser;
 
         private MarkdownTextWatcher() {
             pattern = Pattern.compile("^\\n?#+\\s+.*");
+            markDownParser = new MarkDownParser();
         }
 
         @Override
@@ -66,6 +69,8 @@ public class MarkdownEditText extends EditText {
             if (!(text instanceof Spannable)) {
                 return;
             }
+
+            Log.d("MarkdownEditText", markDownParser.markdownToHtml(text.toString()));
 
             Spannable spannableText = (Spannable) text;
 
