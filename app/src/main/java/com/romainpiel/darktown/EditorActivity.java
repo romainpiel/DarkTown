@@ -1,21 +1,21 @@
 package com.romainpiel.darktown;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
-public class EditorActivity extends ActionBarActivity implements ToolbarPresenter {
+public class EditorActivity extends AppCompatActivity implements ToolbarPresenter {
 
-    @InjectView(R.id.toolbar) AnimatableToolbar toolbar;
+    @Bind(R.id.toolbar) AnimatableToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         if (savedInstanceState == null) {
 

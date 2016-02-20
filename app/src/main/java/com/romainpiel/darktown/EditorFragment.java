@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ScrollView;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class EditorFragment extends Fragment implements ScrollAwareScrollView.OnScrollListener {
 
-    @InjectView(R.id.scrollview) ScrollAwareScrollView scrollView;
-    @InjectView(R.id.input) EditText input;
+    @Bind(R.id.scrollview) ScrollAwareScrollView scrollView;
+    @Bind(R.id.input) EditText input;
 
     private ToolbarPresenter toolbarPresenter;
 
@@ -25,7 +25,7 @@ public class EditorFragment extends Fragment implements ScrollAwareScrollView.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editor, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         scrollView.setOnScrollListener(this);
 
