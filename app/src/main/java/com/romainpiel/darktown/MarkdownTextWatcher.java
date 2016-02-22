@@ -73,7 +73,11 @@ class MarkdownTextWatcher implements TextWatcher {
         return Math.min(Math.max(value, min), max);
     }
 
-    private int findFirstNewLineCharBefore(CharSequence text, int from) {
+    int findFirstNewLineCharBefore(CharSequence text, int from) {
+        if (from < 0 || text.length() < from) {
+            throw new StringIndexOutOfBoundsException();
+        }
+
         boolean found = false;
         int i = from;
         while (!found && i > 0) {
@@ -86,7 +90,11 @@ class MarkdownTextWatcher implements TextWatcher {
         return i;
     }
 
-    private int findFirstNewLineCharAfter(CharSequence text, int from) {
+    int findFirstNewLineCharAfter(CharSequence text, int from) {
+        if (from < 0 || text.length() < from) {
+            throw new StringIndexOutOfBoundsException();
+        }
+
         boolean found = false;
         int i = from;
         while (!found && i < text.length()) {

@@ -27,11 +27,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
 
     final androidSupportVersion = '23.1.1'
+    final robolectricVersion = '3.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:${androidSupportVersion}"
@@ -39,4 +43,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'com.google.truth:truth:0.28'
+    testCompile "org.robolectric:robolectric:${robolectricVersion}"
+    testCompile "org.robolectric:shadows-play-services:${robolectricVersion}"
 }
