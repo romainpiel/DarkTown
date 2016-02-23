@@ -1,5 +1,6 @@
 package com.romainpiel.darktown;
 
+import android.support.annotation.VisibleForTesting;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -77,6 +78,7 @@ class MarkdownTextWatcher implements TextWatcher {
         return Math.min(Math.max(value, min), max);
     }
 
+    @VisibleForTesting
     int findFirstNewLineCharBefore(CharSequence text, int from) {
         if (from < 0 || text.length() < from) {
             throw new StringIndexOutOfBoundsException();
@@ -94,6 +96,7 @@ class MarkdownTextWatcher implements TextWatcher {
         return i;
     }
 
+    @VisibleForTesting
     int findFirstNewLineCharAfter(CharSequence text, int from) {
         if (from < 0 || text.length() < from) {
             throw new StringIndexOutOfBoundsException();
