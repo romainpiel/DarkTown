@@ -9,13 +9,13 @@ import android.text.TextWatcher;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class MarkdownTextWatcher implements TextWatcher {
+class MarkDownTextWatcher implements TextWatcher {
 
     private static final int GROUP_HEADING_1 = 1;
 
     private final Pattern pattern;
 
-    MarkdownTextWatcher() {
+    MarkDownTextWatcher() {
         pattern = Pattern.compile("^\\n?" +
                 "(#+\\s+.*)"        /** {@link GROUP_HEADING_1} */
         );

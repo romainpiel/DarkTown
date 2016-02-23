@@ -5,25 +5,25 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-public class MarkdownEditText extends EditText {
+public class MarkDownEditText extends EditText {
 
-    private final MarkdownTextWatcher textWatcher;
+    private final MarkDownTextWatcher textWatcher;
 
-    public MarkdownEditText(Context context) {
+    public MarkDownEditText(Context context) {
         super(context);
-        textWatcher = new MarkdownTextWatcher();
+        textWatcher = new MarkDownTextWatcher();
         initWatcher();
     }
 
-    public MarkdownEditText(Context context, AttributeSet attrs) {
+    public MarkDownEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        textWatcher = new MarkdownTextWatcher();
+        textWatcher = new MarkDownTextWatcher();
         initWatcher();
     }
 
-    public MarkdownEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MarkDownEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        textWatcher = new MarkdownTextWatcher();
+        textWatcher = new MarkDownTextWatcher();
         initWatcher();
     }
 

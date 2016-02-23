@@ -10,16 +10,16 @@ import org.robolectric.RobolectricGradleTestRunner;
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(RobolectricGradleTestRunner.class)
-public class MarkdownTextWatcherTest {
+public class MarkDownTextWatcherTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private MarkdownTextWatcher textWatcher;
+    private MarkDownTextWatcher textWatcher;
 
     @Before
     public void setUp() throws Exception {
-        textWatcher = new MarkdownTextWatcher();
+        textWatcher = new MarkDownTextWatcher();
     }
 
     @Test
