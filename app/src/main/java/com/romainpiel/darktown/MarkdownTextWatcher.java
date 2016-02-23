@@ -11,13 +11,13 @@ import java.util.regex.Pattern;
 
 class MarkdownTextWatcher implements TextWatcher {
 
-    private static final int GROUP_HEADING = 1;
+    private static final int GROUP_HEADING_1 = 1;
 
     private final Pattern pattern;
 
     MarkdownTextWatcher() {
         pattern = Pattern.compile("^\\n?" +
-                "(#+\\s+.*)"    /** {@link GROUP_HEADING} */
+                "(#+\\s+.*)"        /** {@link GROUP_HEADING_1} */
         );
     }
 
@@ -51,15 +51,17 @@ class MarkdownTextWatcher implements TextWatcher {
         Matcher matcher = pattern.matcher(subSequence);
         int count = 0;
         while (matcher.find()) {
-            int matchS = matcher.start(GROUP_HEADING);
-            int matchE = matcher.end(GROUP_HEADING);
-            HeadingSpan span;
-            if (spans.length == 0) {
-                span = new HeadingSpan();
-            } else {
-                span = (HeadingSpan) spans[0];
+            if (matcher.group(GROUP_HEADING_1) != null) {
+                int matchS = matcher.start(GROUP_HEADING_1);
+                int matchE = matcher.end(GROUP_HEADING_1);
+                HeadingSpan span;
+                if (spans.length == 0) {
+                    span = new HeadingSpan();
+                } else {
+                    span = (HeadingSpan) spans[0];
+                }
+                spannableText.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-            spannableText.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             count++;
         }
 
