@@ -3,8 +3,7 @@ package com.romainpiel.darktown;
 import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 
-// TODO handle state
-public class HeadingSpan extends MetricAffectingSpan {
+public class HeadingSpan extends MetricAffectingSpan implements MarkDownSpan {
 
     private static final float RELATIVE_SIZE = 1.2f;
 

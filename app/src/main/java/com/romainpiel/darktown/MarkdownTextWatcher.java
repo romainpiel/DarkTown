@@ -10,10 +10,14 @@ import java.util.regex.Pattern;
 
 class MarkdownTextWatcher implements TextWatcher {
 
+    private static final int GROUP_HEADING = 1;
+
     private final Pattern pattern;
 
     MarkdownTextWatcher() {
-        pattern = Pattern.compile("^\\n?#+\\s+.*");
+        pattern = Pattern.compile("^\\n?" +
+                "(#+\\s+.*)"    /** {@link GROUP_HEADING} */
+        );
     }
 
     @Override
@@ -39,27 +43,27 @@ class MarkdownTextWatcher implements TextWatcher {
             return;
         }
 
-        HeadingSpan[] spans = spannableText.getSpans(s, e, HeadingSpan.class);
+        MarkDownSpan[] spans = spannableText.getSpans(s, e, MarkDownSpan.class);
 
         CharSequence subSequence = spannableText.subSequence(s, e);
 
         Matcher matcher = pattern.matcher(subSequence);
         int count = 0;
         while (matcher.find()) {
-            int matchS = matcher.start();
-            int matchE = matcher.end();
+            int matchS = matcher.start(GROUP_HEADING);
+            int matchE = matcher.end(GROUP_HEADING);
             HeadingSpan span;
             if (spans.length == 0) {
                 span = new HeadingSpan();
             } else {
-                span = spans[0];
+                span = (HeadingSpan) spans[0];
             }
             spannableText.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             count++;
         }
 
         if (count == 0) {
-            for (HeadingSpan span : spans) {
+            for (MarkDownSpan span : spans) {
                 spannableText.removeSpan(span);
             }
         }
