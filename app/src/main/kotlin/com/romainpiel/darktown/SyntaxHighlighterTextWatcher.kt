@@ -80,7 +80,7 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
     }
 
     @VisibleForTesting
-    fun findFirstNewLineCharBefore(text: CharSequence, from: Int): Int {
+    internal fun findFirstNewLineCharBefore(text: CharSequence, from: Int): Int {
         if (from < 0 || text.length < from) {
             throw StringIndexOutOfBoundsException()
         }
@@ -98,7 +98,7 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
     }
 
     @VisibleForTesting
-    fun findFirstNewLineCharAfter(text: CharSequence, from: Int): Int {
+    internal fun findFirstNewLineCharAfter(text: CharSequence, from: Int): Int {
         if (from < 0 || text.length < from) {
             throw StringIndexOutOfBoundsException()
         }
