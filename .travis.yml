@@ -3,9 +3,9 @@ android:
   components:
     - platform-tools
     - tools
-    - build-tools-21.0.2
-    - android-18
+    - build-tools-23.0.2
     - android-21
+    - android-23
     - extra-android-m2repository
     - extra-android-support
 
@@ -22,4 +22,4 @@ before_install:
   - uname -a
 
 # Let's try to build...
-script: ./gradlew testDebug -i
+script: ./gradlew clean assembleDebug testDebug -i
