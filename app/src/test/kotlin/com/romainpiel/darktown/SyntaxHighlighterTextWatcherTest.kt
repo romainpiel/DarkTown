@@ -1,6 +1,7 @@
 package com.romainpiel.darktown
 
 import com.google.common.truth.Truth.assertThat
+import com.romainpiel.darktown.markdown.MarkDownBrush
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,7 +20,7 @@ class SyntaxHighlighterTextWatcherTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        textWatcher = SyntaxHighlighterTextWatcher()
+        textWatcher = SyntaxHighlighterTextWatcher(MarkDownBrush())
     }
 
     @Test

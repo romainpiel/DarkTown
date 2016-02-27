@@ -5,17 +5,16 @@ import android.text.Editable
 import android.text.Spannable
 import android.text.Spanned
 import android.text.TextWatcher
-import com.romainpiel.darktown.markdown.HeadingSpan
 import java.util.regex.Pattern
 
 class SyntaxHighlighterTextWatcher : TextWatcher {
 
     private val pattern: Pattern
+    private val brush: Brush
 
-    init {
-        pattern = Pattern.compile("^\\n?"
-                + "(#+\\s+.*)" /** GROUP_HEADING_1  */
-        )
+    constructor(brush: Brush) {
+        this.brush = brush
+        pattern = brush.toPattern()
     }
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -44,16 +43,19 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
         val matcher = pattern.matcher(subSequence)
         var count = 0
         while (matcher.find()) {
-            if (matcher.group(GROUP_HEADING_1) != null) {
-                val matchS = matcher.start(GROUP_HEADING_1)
-                val matchE = matcher.end(GROUP_HEADING_1)
-                val span: HeadingSpan
-                if (spans.size == 0) {
-                    span = HeadingSpan()
-                } else {
-                    span = spans[0] as HeadingSpan
+            brush.symbolList.forEachIndexed { i, symbol ->
+                val groupId = i + 1
+                if (matcher.group(groupId) != null) {
+                    val matchS = matcher.start(groupId)
+                    val matchE = matcher.end(groupId)
+                    val span: HighlightedSpan
+                    if (spans.size == 0) {
+                        span = symbol.span.invoke()
+                    } else {
+                        span = spans[0]
+                    }
+                    text.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
-                text.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
             count++
         }
@@ -106,10 +108,5 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
             }
         }
         return i
-    }
-
-    companion object {
-
-        private val GROUP_HEADING_1 = 1
     }
 }
