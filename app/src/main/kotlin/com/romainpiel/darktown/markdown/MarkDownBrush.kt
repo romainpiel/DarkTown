@@ -5,6 +5,7 @@ import com.romainpiel.darktown.Symbol
 
 class MarkDownBrush() : Brush {
     override val symbolList: List<Symbol<*>> = listOf(
-            Symbol<HeadingSpan>("#+\\s+.*")
+            Symbol<HeadingSpan>("#+\\s+.*"),
+            Symbol<BulletSpan>("-+\\s+.*")
     )
 }
