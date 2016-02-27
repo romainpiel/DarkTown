@@ -9,17 +9,17 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
 
 @RunWith(RobolectricGradleTestRunner::class)
-class MarkDownTextWatcherTest {
+class SyntaxHighlighterTextWatcherTest {
 
     @Rule @JvmField
     var expectedException = ExpectedException.none()
 
-    private var textWatcher: MarkDownTextWatcher? = null
+    private var textWatcher: SyntaxHighlighterTextWatcher? = null
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        textWatcher = MarkDownTextWatcher()
+        textWatcher = SyntaxHighlighterTextWatcher()
     }
 
     @Test

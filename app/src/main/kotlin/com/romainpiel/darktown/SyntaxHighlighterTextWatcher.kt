@@ -5,9 +5,10 @@ import android.text.Editable
 import android.text.Spannable
 import android.text.Spanned
 import android.text.TextWatcher
+import com.romainpiel.darktown.markdown.HeadingSpan
 import java.util.regex.Pattern
 
-class MarkDownTextWatcher : TextWatcher {
+class SyntaxHighlighterTextWatcher : TextWatcher {
 
     private val pattern: Pattern
 
@@ -36,7 +37,7 @@ class MarkDownTextWatcher : TextWatcher {
             return
         }
 
-        val spans = text.getSpans(s, e, MarkDownSpan::class.java)
+        val spans = text.getSpans(s, e, HighlightedSpan::class.java)
 
         val subSequence = text.subSequence(s, e)
 

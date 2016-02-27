@@ -5,22 +5,22 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.widget.EditText
 
-class MarkDownEditText : EditText {
+class SyntaxHighlighterEditText : EditText {
 
-    private val textWatcher: MarkDownTextWatcher
+    private val textWatcher: SyntaxHighlighterTextWatcher
 
     constructor(context: Context) : super(context) {
-        textWatcher = MarkDownTextWatcher()
+        textWatcher = SyntaxHighlighterTextWatcher()
         initWatcher()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        textWatcher = MarkDownTextWatcher()
+        textWatcher = SyntaxHighlighterTextWatcher()
         initWatcher()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        textWatcher = MarkDownTextWatcher()
+        textWatcher = SyntaxHighlighterTextWatcher()
         initWatcher()
     }
 

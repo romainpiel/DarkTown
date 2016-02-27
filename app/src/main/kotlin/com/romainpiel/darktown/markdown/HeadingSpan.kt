@@ -1,9 +1,10 @@
-package com.romainpiel.darktown
+package com.romainpiel.darktown.markdown
 
 import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
+import com.romainpiel.darktown.HighlightedSpan
 
-class HeadingSpan : MetricAffectingSpan(), MarkDownSpan {
+class HeadingSpan : MetricAffectingSpan(), HighlightedSpan {
 
     override fun updateDrawState(tp: TextPaint) {
         tp.isFakeBoldText = true
