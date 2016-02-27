@@ -53,7 +53,7 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
                     val matchE = matcher.end(groupId)
                     val span: HighlightedSpan
                     if (spans.size == 0) {
-                        span = symbol.type.newInstance()
+                        span = symbol.newSpan()
                     } else {
                         span = spans[0]
                     }

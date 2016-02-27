@@ -16,6 +16,6 @@ class EditorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editor)
         setSupportActionBar(toolbar)
-        input.setBrush(MarkDownBrush())
+        input.setBrush(MarkDownBrush(resources))
     }
 }

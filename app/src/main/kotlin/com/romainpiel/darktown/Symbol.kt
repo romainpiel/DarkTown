@@ -1,7 +1,14 @@
 package com.romainpiel.darktown
 
-class Symbol<T: HighlightedSpan>(val regexp: String, val type: Class<T>) {
+import android.content.res.Resources
+
+class Symbol<T: HighlightedSpan>(
+        val resources: Resources,
+        val regexp: String,
+        val type: Class<T>,
+        val newSpan: () -> T) {
     companion object {
-        inline operator fun <reified T : HighlightedSpan>invoke(regexp: String) = Symbol(regexp, T::class.java)
+        inline operator fun <reified T : HighlightedSpan>invoke(resources: Resources, regexp: String, noinline newSpan: () -> T)
+                = Symbol(resources, regexp, T::class.java, newSpan)
     }
 }
