@@ -36,31 +36,36 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
             return
         }
 
-        val spans = text.getSpans(s, e, HighlightedSpan::class.java)
-
         val subSequence = text.subSequence(s, e)
 
         val matcher = pattern.matcher(subSequence)
-        var count = 0
-        while (matcher.find()) {
+        var foundSomething = false
+        while (matcher.find() ) {
+            foundSomething = true
             brush.symbolList.forEachIndexed { i, symbol ->
-                val groupId = i + 1
+                val spans = text.getSpans(s, e, symbol.type)
+
+                val groupId = i + 1 // matcher groups are 1-indexed
                 if (matcher.group(groupId) != null) {
                     val matchS = matcher.start(groupId)
                     val matchE = matcher.end(groupId)
                     val span: HighlightedSpan
                     if (spans.size == 0) {
-                        span = symbol.span.invoke()
+                        span = symbol.type.newInstance()
                     } else {
                         span = spans[0]
                     }
                     text.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                } else {
+                    for (span in spans) {
+                        text.removeSpan(span)
+                    }
                 }
             }
-            count++
         }
 
-        if (count == 0) {
+        if (!foundSomething) {
+            val spans = text.getSpans(s, e, HighlightedSpan::class.java)
             for (span in spans) {
                 text.removeSpan(span)
             }
