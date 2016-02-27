@@ -1,13 +1,19 @@
 buildscript {
+    ext.kotlinVersion = '1.0.0'
+    ext.androidSupportVersion = '23.1.1'
+    ext.robolectricVersion = '3.0'
+
     repositories {
         jcenter()
     }
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.jakewharton.hugo'
 
 android {
@@ -30,17 +36,18 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
 
-    final androidSupportVersion = '23.1.1'
-    final robolectricVersion = '3.0'
-
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:${androidSupportVersion}"
     compile "com.android.support:design:${androidSupportVersion}"
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
+    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
 
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.truth:truth:0.28'
