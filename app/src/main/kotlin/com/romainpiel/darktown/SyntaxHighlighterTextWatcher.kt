@@ -20,30 +20,32 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
     }
 
-    override fun onTextChanged(text: CharSequence, start: Int, lengthBefore: Int, lengthAfter: Int) {
+    override fun onTextChanged(text: CharSequence, start: Int, lengthBefore: Int, count: Int) {
+        L.d("$text $start $lengthBefore $count")
 
         if (text !is Spannable) {
             return
         }
 
-        var s = ensureRange(start - lengthBefore, 0, text.length)
-        var e = ensureRange(start - lengthBefore + lengthAfter + 1, 0, text.length)
+        val lineS = findFirstCharacterOfLine(text, start)
+        val lineE = findFirstNewLineCharAfter(text, start + count)
 
-        s = findFirstNewLineCharBefore(text, s)
-        e = findFirstNewLineCharAfter(text, e)
-
-        if (s == e) {
+        if (lineS == lineE) {
             return
         }
 
-        val subSequence = text.subSequence(s, e)
+        L.d("$lineS-$lineE")
+
+        val subSequence = text.subSequence(lineS, lineE)
+
+        L.d("${subSequence.toString()}")
 
         val matcher = pattern.matcher(subSequence)
         var foundSomething = false
         while (matcher.find() ) {
             foundSomething = true
             brush.symbolList.forEachIndexed { i, symbol ->
-                val spans = text.getSpans(s, e, symbol.type)
+                val spans = text.getSpans(lineS, lineE, symbol.type)
 
                 val groupId = i + 1 // matcher groups are 1-indexed
                 if (matcher.group(groupId) != null) {
@@ -55,7 +57,7 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
                     } else {
                         span = spans[0]
                     }
-                    text.setSpan(span, matchS + s, matchE + s, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    text.setSpan(span, matchS + lineS, matchE + lineS, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 } else {
                     for (span in spans) {
                         text.removeSpan(span)
@@ -65,7 +67,7 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
         }
 
         if (!foundSomething) {
-            val spans = text.getSpans(s, e, HighlightedSpan::class.java)
+            val spans = text.getSpans(lineS, lineE, HighlightedSpan::class.java)
             for (span in spans) {
                 text.removeSpan(span)
             }
@@ -75,20 +77,16 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
     override fun afterTextChanged(s: Editable) {
     }
 
-    private fun ensureRange(value: Int, min: Int, max: Int): Int {
-        return Math.min(Math.max(value, min), max)
-    }
-
     @VisibleForTesting
-    internal fun findFirstNewLineCharBefore(text: CharSequence, from: Int): Int {
+    internal fun findFirstCharacterOfLine(text: CharSequence, from: Int): Int {
         if (from < 0 || text.length < from) {
             throw StringIndexOutOfBoundsException()
         }
 
         var found = false
         var i = from
-        while (!found && i > 0) {
-            if (text[i] == '\n') {
+        while (!found && 0 <= i - 1) {
+            if (text[i - 1] == '\n') {
                 found = true
             } else {
                 i--

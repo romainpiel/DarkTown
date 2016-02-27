@@ -24,32 +24,32 @@ class SyntaxHighlighterTextWatcherTest {
     }
 
     @Test
-    fun findFirstNewLineCharBefore_empty() {
-        val position = textWatcher!!.findFirstNewLineCharBefore("", 0)
+    fun findFirstCharacterOfLine_empty() {
+        val position = textWatcher!!.findFirstCharacterOfLine("", 0)
         assertThat(position).isEqualTo(0)
     }
 
     @Test
-    fun findFirstNewLineCharBefore_outOfBound() {
+    fun findFirstCharacterOfLine_outOfBound() {
         expectedException.expect(StringIndexOutOfBoundsException::class.java)
-        textWatcher!!.findFirstNewLineCharBefore("", 1)
+        textWatcher!!.findFirstCharacterOfLine("", 1)
     }
 
     @Test
-    fun findFirstNewLineCharBefore_withNewLineAtPosition() {
-        val position = textWatcher!!.findFirstNewLineCharBefore("a \n b", 2)
-        assertThat(position).isEqualTo(2)
+    fun findFirstCharacterOfLine_withNewLineAtPosition() {
+        val position = textWatcher!!.findFirstCharacterOfLine("a \n b", 2)
+        assertThat(position).isEqualTo(0)
     }
 
     @Test
-    fun findFirstNewLineCharBefore_withNewLineBefore() {
-        val position = textWatcher!!.findFirstNewLineCharBefore("a \n b", 4)
-        assertThat(position).isEqualTo(2)
+    fun findFirstCharacterOfLine_withNewLineBefore() {
+        val position = textWatcher!!.findFirstCharacterOfLine("a \n b", 4)
+        assertThat(position).isEqualTo(3)
     }
 
     @Test
-    fun findFirstNewLineCharBefore_noNewLineBefore() {
-        val position = textWatcher!!.findFirstNewLineCharBefore("a \n b", 1)
+    fun findFirstCharacterOfLine_noNewLineBefore() {
+        val position = textWatcher!!.findFirstCharacterOfLine("a \n b", 1)
         assertThat(position).isEqualTo(0)
     }
 
