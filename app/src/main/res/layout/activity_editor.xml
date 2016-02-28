@@ -30,10 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:paddingBottom="@dimen/spacing_double"
-            android:paddingLeft="@dimen/spacing_quadruple"
-            android:paddingRight="@dimen/spacing_quadruple"
-            android:paddingTop="@dimen/spacing_double" />
+            android:padding="@dimen/spacing_double" />
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
