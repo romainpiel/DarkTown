@@ -16,10 +16,9 @@ class SyntaxHighlighterTextWatcherTest {
     @Rule @JvmField
     var expectedException = ExpectedException.none()
 
-    private var textWatcher: SyntaxHighlighterTextWatcher? = null
+    lateinit var textWatcher: SyntaxHighlighterTextWatcher
 
     @Before
-    @Throws(Exception::class)
     fun setUp() {
         val resources = RuntimeEnvironment.application.resources
         textWatcher = SyntaxHighlighterTextWatcher(MarkDownBrush(resources))
@@ -27,61 +26,61 @@ class SyntaxHighlighterTextWatcherTest {
 
     @Test
     fun findFirstCharacterOfLine_empty() {
-        val position = textWatcher!!.findFirstCharacterOfLine("", 0)
+        val position = textWatcher.findFirstCharacterOfLine("", 0)
         assertThat(position).isEqualTo(0)
     }
 
     @Test
     fun findFirstCharacterOfLine_outOfBound() {
         expectedException.expect(StringIndexOutOfBoundsException::class.java)
-        textWatcher!!.findFirstCharacterOfLine("", 1)
+        textWatcher.findFirstCharacterOfLine("", 1)
     }
 
     @Test
     fun findFirstCharacterOfLine_withNewLineAtPosition() {
-        val position = textWatcher!!.findFirstCharacterOfLine("a \n b", 2)
+        val position = textWatcher.findFirstCharacterOfLine("a \n b", 2)
         assertThat(position).isEqualTo(0)
     }
 
     @Test
     fun findFirstCharacterOfLine_withNewLineBefore() {
-        val position = textWatcher!!.findFirstCharacterOfLine("a \n b", 4)
+        val position = textWatcher.findFirstCharacterOfLine("a \n b", 4)
         assertThat(position).isEqualTo(3)
     }
 
     @Test
     fun findFirstCharacterOfLine_noNewLineBefore() {
-        val position = textWatcher!!.findFirstCharacterOfLine("a \n b", 1)
+        val position = textWatcher.findFirstCharacterOfLine("a \n b", 1)
         assertThat(position).isEqualTo(0)
     }
 
     @Test
     fun findFirstNewLineCharAfter_empty() {
-        val position = textWatcher!!.findFirstNewLineCharAfter("", 0)
+        val position = textWatcher.findFirstNewLineCharAfter("", 0)
         assertThat(position).isEqualTo(0)
     }
 
     @Test
     fun findFirstNewLineCharAfter_outOfBound() {
         expectedException.expect(StringIndexOutOfBoundsException::class.java)
-        textWatcher!!.findFirstNewLineCharAfter("", 1)
+        textWatcher.findFirstNewLineCharAfter("", 1)
     }
 
     @Test
     fun findFirstNewLineCharAfter_withNewLineAtPosition() {
-        val position = textWatcher!!.findFirstNewLineCharAfter("a \n c", 2)
+        val position = textWatcher.findFirstNewLineCharAfter("a \n c", 2)
         assertThat(position).isEqualTo(2)
     }
 
     @Test
     fun findFirstNewLineCharAfter_withNewLineAfter() {
-        val position = textWatcher!!.findFirstNewLineCharAfter("a \n c", 0)
+        val position = textWatcher.findFirstNewLineCharAfter("a \n c", 0)
         assertThat(position).isEqualTo(2)
     }
 
     @Test
     fun findFirstNewLineCharAfter_noNewLineAfter() {
-        val position = textWatcher!!.findFirstNewLineCharAfter("a \n c", 3)
+        val position = textWatcher.findFirstNewLineCharAfter("a \n c", 3)
         assertThat(position).isEqualTo(5)
     }
 }
