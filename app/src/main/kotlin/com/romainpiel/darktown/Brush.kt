@@ -13,12 +13,7 @@ interface Brush {
             return
         }
 
-        L.d("$start-$end")
-
         val subSequence = text.subSequence(start, end)
-
-        L.d("${subSequence.toString()}")
-
         symbolList.forEach { symbol ->
             val matcher = symbol.pattern.matcher(subSequence)
             val spans = text.getSpans(start, end, symbol.type)

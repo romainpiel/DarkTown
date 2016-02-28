@@ -11,8 +11,6 @@ class SyntaxHighlighterTextWatcher(private val brush: Brush) : TextWatcher {
     }
 
     override fun onTextChanged(text: CharSequence, start: Int, lengthBefore: Int, count: Int) {
-        L.d("$text $start $lengthBefore $count")
-
         if (text !is Spannable) {
             return
         }
