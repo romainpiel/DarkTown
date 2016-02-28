@@ -8,6 +8,7 @@ import org.junit.Test
 import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
+import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricGradleTestRunner::class)
 class SyntaxHighlighterTextWatcherTest {
@@ -20,7 +21,8 @@ class SyntaxHighlighterTextWatcherTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
-        textWatcher = SyntaxHighlighterTextWatcher(MarkDownBrush())
+        val resources = RuntimeEnvironment.application.resources
+        textWatcher = SyntaxHighlighterTextWatcher(MarkDownBrush(resources))
     }
 
     @Test
