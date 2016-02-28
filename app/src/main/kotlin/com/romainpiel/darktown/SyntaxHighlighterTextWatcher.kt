@@ -5,17 +5,8 @@ import android.text.Editable
 import android.text.Spannable
 import android.text.Spanned
 import android.text.TextWatcher
-import java.util.regex.Pattern
 
-class SyntaxHighlighterTextWatcher : TextWatcher {
-
-    private val pattern: Pattern
-    private val brush: Brush
-
-    constructor(brush: Brush) {
-        this.brush = brush
-        pattern = brush.toPattern()
-    }
+class SyntaxHighlighterTextWatcher(private val brush: Brush) : TextWatcher {
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
     }
@@ -48,36 +39,28 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
 
         L.d("${subSequence.toString()}")
 
-        val matcher = pattern.matcher(subSequence)
-        var foundSomething = false
-        while (matcher.find() ) {
-            foundSomething = true
-            brush.symbolList.forEachIndexed { i, symbol ->
-                val spans = text.getSpans(lineS, lineE, symbol.type)
+        brush.symbolList.forEach { symbol ->
+            val matcher = symbol.pattern.matcher(subSequence)
+            val spans = text.getSpans(lineS, lineE, symbol.type)
 
-                val groupId = i + 1 // matcher groups are 1-indexed
-                if (matcher.group(groupId) != null) {
-                    val matchS = matcher.start(groupId)
-                    val matchE = matcher.end(groupId)
-                    val span: HighlightedSpan
-                    if (spans.size == 0) {
-                        span = symbol.newSpan()
-                    } else {
-                        span = spans[0]
-                    }
-                    text.setSpan(span, matchS + lineS, matchE + lineS, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            var foundSomething = false
+            while(matcher.find()) {
+                foundSomething = true
+
+                val matchS = matcher.start()
+                val matchE = matcher.end()
+                val span: HighlightedSpan
+                if (spans.size == 0) {
+                    span = symbol.newSpan()
                 } else {
-                    for (span in spans) {
-                        text.removeSpan(span)
-                    }
+                    span = spans[0]
                 }
+                text.setSpan(span, matchS + lineS, matchE + lineS, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
-        }
-
-        if (!foundSomething) {
-            val spans = text.getSpans(lineS, lineE, HighlightedSpan::class.java)
-            for (span in spans) {
-                text.removeSpan(span)
+            if (!foundSomething) {
+                for (span in spans) {
+                    text.removeSpan(span)
+                }
             }
         }
     }
