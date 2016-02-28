@@ -22,25 +22,22 @@ interface Brush {
         symbolList.forEach { symbol ->
             val matcher = symbol.pattern.matcher(subSequence)
             val spans = text.getSpans(start, end, symbol.type)
+            var nextRecycledSpan = 0
 
-            var foundSomething = false
-            while(matcher.find()) {
-                foundSomething = true
-
+            while (matcher.find()) {
                 val matchS = matcher.start()
                 val matchE = matcher.end()
                 val span: HighlightedSpan
-                if (spans.size == 0) {
-                    span = symbol.newSpan()
+                if (nextRecycledSpan < spans.size) {
+                    span = spans[nextRecycledSpan]
+                    nextRecycledSpan++
                 } else {
-                    span = spans[0]
+                    span = symbol.newSpan()
                 }
                 text.setSpan(span, matchS + start, matchE + start, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
-            if (!foundSomething) {
-                for (span in spans) {
-                    text.removeSpan(span)
-                }
+            for (i in nextRecycledSpan..spans.size - 1) {
+                text.removeSpan(spans[i])
             }
         }
     }
