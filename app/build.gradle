@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlinVersion = '1.0.0'
-    ext.androidSupportVersion = '23.1.1'
+    ext.androidSupportVersion = '23.2.0'
     ext.robolectricVersion = '3.0'
 
     repositories {

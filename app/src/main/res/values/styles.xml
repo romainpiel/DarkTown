@@ -1,13 +1,10 @@
 <resources>
-
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="Theme.DarkTown" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
     </style>
-
-    <style name="ActionBar" parent="Widget.AppCompat.ActionBar"/>
-
 </resources>
