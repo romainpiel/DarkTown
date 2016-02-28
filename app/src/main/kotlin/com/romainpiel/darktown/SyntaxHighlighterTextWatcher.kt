@@ -30,6 +30,14 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
         val lineS = findFirstCharacterOfLine(text, start)
         val lineE = findFirstNewLineCharAfter(text, start + count)
 
+        updateSpans(text, lineS, lineE)
+    }
+
+    override fun afterTextChanged(s: Editable) {
+    }
+
+    @VisibleForTesting
+    internal fun updateSpans(text: Spannable, lineS: Int, lineE: Int) {
         if (lineS == lineE) {
             return
         }
@@ -72,9 +80,6 @@ class SyntaxHighlighterTextWatcher : TextWatcher {
                 text.removeSpan(span)
             }
         }
-    }
-
-    override fun afterTextChanged(s: Editable) {
     }
 
     @VisibleForTesting

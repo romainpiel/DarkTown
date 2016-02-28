@@ -1,14 +1,13 @@
 package com.romainpiel.darktown
 
+import android.text.SpannableStringBuilder
 import com.google.common.truth.Truth.assertThat
-import com.romainpiel.darktown.markdown.MarkDownBrush
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricGradleTestRunner::class)
 class SyntaxHighlighterTextWatcherTest {
@@ -18,10 +17,25 @@ class SyntaxHighlighterTextWatcherTest {
 
     lateinit var textWatcher: SyntaxHighlighterTextWatcher
 
+    class EmptyBrush(override val symbolList: List<Symbol<*>> = emptyList()) : Brush
+
     @Before
     fun setUp() {
-        val resources = RuntimeEnvironment.application.resources
-        textWatcher = SyntaxHighlighterTextWatcher(MarkDownBrush(resources))
+        textWatcher = SyntaxHighlighterTextWatcher(EmptyBrush())
+    }
+
+    @Test
+    fun updateSpans_emptyBrush_emptyString() {
+        val text = SpannableStringBuilder("")
+        textWatcher.updateSpans(text, 0, 0)
+        assertThat(text.getSpans(0, text.length, Any::class.java)).isEmpty()
+    }
+
+    @Test
+    fun updateSpans_emptyBrush_someString() {
+        val text = SpannableStringBuilder("Logic will get you from A to B.\nImagination will take you everywhere.")
+        textWatcher.updateSpans(text, 0, 0)
+        assertThat(text.getSpans(0, text.length, Any::class.java)).isEmpty()
     }
 
     @Test
