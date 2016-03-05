@@ -31,7 +31,7 @@ class BrushTest {
     fun updateSpans_emptyBrush_someString() {
         val brush = EmptyBrush()
         val text = SpannableStringBuilder("Logic will get you from A to B.\nImagination will take you everywhere.")
-        brush.updateSpans(text, 0, 0)
+        brush.updateSpans(text, 0, text.length)
         assertThat(text.getSpans(0, text.length, Any::class.java)).isEmpty()
     }
 
