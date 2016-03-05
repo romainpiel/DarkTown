@@ -16,12 +16,13 @@ interface Brush {
         val subSequence = text.subSequence(start, end)
         symbolList.forEach { symbol ->
             val matcher = symbol.pattern.matcher(subSequence)
+            val groupCount = matcher.groupCount()
             val spans = text.getSpans(start, end, symbol.type)
             var nextRecycledSpan = 0
 
             while (matcher.find()) {
-                val matchS = matcher.start()
-                val matchE = matcher.end()
+                val matchS = matcher.start(groupCount)
+                val matchE = matcher.end(groupCount)
                 val span: HighlightedSpan
                 if (nextRecycledSpan < spans.size) {
                     span = spans[nextRecycledSpan]
